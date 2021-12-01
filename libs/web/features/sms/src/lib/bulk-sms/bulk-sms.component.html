@@ -1,0 +1,134 @@
+<div class="bg-white shadow-lg rounded-lg px-4 lg:px-8 py-4">
+  <nz-page-header class="site-page-header" nzBackIcon>
+    <nz-page-header-title class='text-xl'><span class='fe fe-send mr-4'></span>Send SMS</nz-page-header-title>
+    <nz-page-header-extra>
+      <button (click)="showModal = true" nz-button nzType="primary">
+        <span class="fe fe-mail"></span> New Broadcast
+      </button>
+    </nz-page-header-extra>
+  </nz-page-header>
+
+  <nz-divider></nz-divider>
+
+  <div class="card-body" *ngIf="users$ | async as users">
+    <div *ngIf="users.length">
+      <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search"></i>
+      </ng-template>
+      <app-filter-textbox
+        class='mb-2'
+        #filterBox
+        (changed)="filterData($event)"
+        [filter]="searchTerm"
+        [ngClass]="{ hidden: !users.length, block: users.length }"
+        placeholderText="Search messages"
+      ></app-filter-textbox>
+    </div>
+
+    <div id="members-directory">
+      <div *ngIf="!users.length">
+        <div >
+          <nz-empty class='flex flex-col items-center'
+                    nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                    [nzNotFoundContent]="contentTpl"
+                    [nzNotFoundFooter]="footerTpl"
+          >
+            <ng-template #contentTpl>
+              <h1>Send Bulk Messages to members</h1>
+              <div>
+                This feature will allow you send sms message to selected or all members in the directory.
+              </div>
+            </ng-template>
+            <ng-template #footerTpl>
+              <!--            <button nz-button nzType="primary" >Create Now</button>-->
+            </ng-template>
+          </nz-empty>
+        </div>
+      </div>
+    </div>
+
+    <div class='md:hidden' *ngIf="users.length">
+      <div *ngFor="let m of filteredUsers;  last as isLast">
+        <div>
+          <div class='flex items-center justify-between'>
+            <div class='flex items-center my-4 w-11/12'>
+              <div class=''>
+                <div class="font-semibold text-xs">{{ m.message }}</div>
+
+              </div>
+            </div>
+          </div>
+          <hr *ngIf='!isLast'/>
+        </div>
+      </div>
+    </div>
+    <nz-table
+      class="hidden md:block"
+      *ngIf="users.length"
+      [nzPageSize]='50'
+      [nzData]="[filteredUsers]"
+    >
+      <thead>
+      <tr>
+        <th>Date</th>
+        <th>Message</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of filteredUsers">
+        <td class="font-semibold">{{ data.created_at |amDateFormat:'LL' }} </td>
+        <td>{{ data.message }}</td>
+        <td>
+          <nz-tag nzColor='geekblue'>{{data._user?.name}}</nz-tag>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
+  <nz-modal
+    [(nzVisible)]="showModal"
+    [nzTitle]="'Send SMS Message'"
+    (nzOnCancel)="showModal = false"
+    [nzOkDisabled]="form.invalid"
+    (nzOnOk)="onSubmit()"
+  >
+    <ng-container *nzModalContent>
+      <form nz-form nzLayout='vertical' [formGroup]="form">
+        <fe-messages></fe-messages>
+        <nz-form-item>
+          <nz-form-label [nzSm]="24" [nzXs]="24" nzRequired
+          >Recipients</nz-form-label
+          >
+          <nz-form-control
+            [nzSm]="24"
+            [nzXs]="24"
+            nzErrorTip="Select target recipients"
+          >
+            <nz-radio-group formControlName='toAllMembers'>
+              <label nz-radio [nzValue]="true">All members <span *ngIf='members$|async as count'>({{count}})</span></label>
+              <label nz-radio [nzDisabled]='true' [nzValue]="false">Customize Recipient List</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+
+
+        <nz-form-item>
+          <nz-form-label [nzSm]="24" [nzXs]="24" nzRequired>Message Content</nz-form-label>
+          <nz-form-control
+            [nzSm]="24"
+            [nzXs]="24"
+            nzErrorTip="Enter message content"
+          >
+            <textarea formControlName="message" nz-input></textarea>
+          </nz-form-control>
+        </nz-form-item>
+
+
+
+      </form>
+    </ng-container>
+  </nz-modal>
+
+</div>

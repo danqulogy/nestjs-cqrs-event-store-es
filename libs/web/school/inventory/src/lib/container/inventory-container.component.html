@@ -1,0 +1,77 @@
+<div class="bg-white tui-container tui-container_fullwidth  shadow-lg rounded-lg px-4 lg:px-8 py-4 ml-4 mt-2">
+  <nz-page-header class="site-page-header" nzBackIcon>
+    <nz-page-header-title>Stock Items</nz-page-header-title>
+    <nz-page-header-extra>
+<!--      <button (click)='exportExcel()' nz-button nzType="primary" class='flex food-items-center space-x-1'>-->
+<!--        Export <span class='fa fa-file-excel-o'></span>-->
+<!--      </button>-->
+    </nz-page-header-extra>
+  </nz-page-header>
+
+  <nz-divider></nz-divider>
+
+  <div class="card-body" *ngIf="cardHolders$ | async as cardHolders">
+    <div *ngIf="cardHolders.length">
+      <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search"></i>
+      </ng-template>
+      <app-filter-textbox
+        class='mb-2 w-64x'
+        #filterBox
+        (changed)="filterData($event)"
+        [filter]="searchTerm"
+        [ngClass]="{ hidden: !cardHolders.length, block: cardHolders.length }"
+        placeholderText="Find item"
+      ></app-filter-textbox>
+    </div>
+
+    <div id="members-directory">
+      <div *ngIf="!cardHolders.length">
+        <nz-result
+          class="flex flex-col items-center"
+          nzStatus="404"
+          nzTitle="No Stock Items were found"
+          nzSubTitle="Manage your stock items here"
+        >
+        </nz-result>
+      </div>
+    </div>
+
+    <nz-table id='card-holders-table'
+      class="hiddenx md:blockx"
+      *ngIf="cardHolders.length"
+      [nzPageSize]='50'
+      [nzData]="[filteredCardHolders]"
+    >
+      <thead>
+      <tr>
+        <th class='font-bold'>Card Number</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Balance</th>
+        <th class='hidden xl:block'>Registered</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of filteredCardHolders">
+<!--        <td>{{ data.card_num }}</td>-->
+<!--        <td class="font-semibold">{{ data.name | titlecase }}</td>-->
+<!--        <td>-->
+<!--          <a [href]="'tel:' + data.phone">-->
+<!--            {{ data.phone ?? 'N/A' }}-->
+<!--          </a>-->
+<!--        </td>-->
+
+<!--        <td  class='hidden xl:block'>-->
+<!--          {{ data.balance | currency:' ' }}-->
+<!--        </td>-->
+<!--        <td>-->
+<!--         {{data.createdAt|amDateFormat: 'll'}}-->
+<!--        </td>-->
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
+
+</div>

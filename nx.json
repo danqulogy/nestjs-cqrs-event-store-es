@@ -1,0 +1,136 @@
+{
+  "npmScope": "fom",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    ".eslintrc.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "accessToken": "NWEzY2ZiMWQtZDdlNi00ZGMwLWExMjktZTg3YjM0Y2RmNzU3fHJlYWQtd3JpdGU="
+      }
+    }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
+  "projects": {
+    "backend-application": {
+      "tags": []
+    },
+    "backend-common": {
+      "tags": []
+    },
+    "backend-context-ministry-reads": {
+      "tags": []
+    },
+    "backend-context-ministry-writes": {
+      "tags": []
+    },
+    "backend-context-school-reads": {
+      "tags": []
+    },
+    "backend-context-school-writes": {
+      "tags": []
+    },
+    "backend-context-suppliers-reads": {
+      "tags": []
+    },
+    "backend-context-suppliers-writes": {
+      "tags": []
+    },
+    "backend-core-cqrx": {
+      "tags": []
+    },
+    "backend-domain": {
+      "tags": []
+    },
+    "backend-persistence": {
+      "tags": []
+    },
+    "dashboard": {
+      "tags": []
+    },
+    "servers-gateway": {
+      "tags": []
+    },
+    "shared-api-dtos": {
+      "tags": []
+    },
+    "web-admin": {
+      "tags": []
+    },
+    "web-core": {
+      "tags": []
+    },
+    "web-features-auth": {
+      "tags": []
+    },
+    "web-features-dashboard": {
+      "tags": []
+    },
+    "web-features-members": {
+      "tags": []
+    },
+    "web-features-schools": {
+      "tags": []
+    },
+    "web-features-shared-ui": {
+      "tags": []
+    },
+    "web-features-sms": {
+      "tags": []
+    },
+    "web-features-users": {
+      "tags": []
+    },
+    "web-ministry-items": {
+      "tags": []
+    },
+    "web-school": {
+      "tags": []
+    },
+    "web-school-auth": {
+      "tags": []
+    },
+    "web-school-dashboard": {
+      "tags": []
+    },
+    "web-school-enrollment": {
+      "tags": []
+    },
+    "web-school-inventory": {
+      "tags": []
+    },
+    "web-shared-feature-notification": {
+      "tags": []
+    },
+    "web-shared-ui-ant": {
+      "tags": []
+    },
+    "web-website": {
+      "tags": []
+    },
+    "web-website-e2e": {
+      "tags": [],
+      "implicitDependencies": ["web-website"]
+    },
+    "web/school-e2e": {
+      "tags": [],
+      "implicitDependencies": ["web-school"]
+    }
+  }
+}

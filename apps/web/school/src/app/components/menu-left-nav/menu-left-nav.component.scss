@@ -1,0 +1,30 @@
+li{
+  cursor: pointer;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  a{
+    span.fe{
+      color: #fff
+    }
+
+    text-decoration: none;
+    border: none;
+    color: #fff;
+  }
+}
+
+li.bg-yellow-500{
+  background: #f69d0c;
+
+  a{
+    color: #01002a;
+
+    span.fe{
+      color: #01002a;
+    }
+
+    svg{
+      fill: #01002a;
+    }
+  }
+}

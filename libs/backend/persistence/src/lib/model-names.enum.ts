@@ -1,0 +1,43 @@
+
+export enum ModelNamesEnum{
+  SCHOOL_MODEL_NAME = 'schools',
+
+
+
+  STOCK_BALANCE ='stock_balance',
+  PRODUCTS='products',
+  CHARTS_OF_ACCOUNTS = 'charts_of_accounts',
+  JOB_ANALYSIS_MODEL_NAME = 'JobAnalysis',
+  QUOTES_MODEL_NAME = 'quotes',
+  PROJECT_MODEL_NAME = 'Projects',
+  CUSTOMERS_MODEL_NAME = 'Customers',
+  FISCAL_YEAR_MODEL_NAME = 'fiscal_years',
+  INVOICE_MODEL_NAME = 'invoices',
+  SETTINGS_MODEL_NAME = 'settings',
+  LEAD_MODEL_NAME = 'Lead',
+  INTERESTED_PRODUCTS_MODEL_NAME = 'interested_products',
+  ACTIVITY_MODEL_NAME = 'activities',
+  CONTACT_MODEL_NAME = 'contacts',
+  DEAL_MODEL_NAME = 'deals',
+  NOTES_MODEL_NAME = 'notes',
+  ISSUES_MODEL_NAME = 'issues',
+  JOB_TICKETS_MODEL_NAME = 'job-tickets',
+  DEPARTMENT_MODEL_NAME = 'Department',
+  PROJECT_REQUISITIONS_MODEL_NAME = 'project_requisitions',
+  PROJECT_REQUISITION_LINE_ITEMS_MODEL_NAME = 'requisition_line_items',
+  PAYMENT_TERMS_MODEL_NAME = 'Payment_Terms',
+  CURRENCY_MODEL_NAME = 'currencies',
+  SUPPLIERS_MODEL_NAME = 'suppliers',
+  JOURNALS_MODEL_NAME = 'journal_entries',
+  PURCHASE_ORDER_LINE_ITEMS_MODEL_NAME = 'purchase_order_line_items',
+  PURCHASE_ORDERS_MODEL_NAME = 'purchase_orders',
+  BILL_LINE_ITEMS_MODEL_NAME = 'bill_line_items',
+  BILLS_MODEL_NAME= 'bills',
+  INVENTORY_ADJUSTED_LINE_ITEMS_MODEL_NAME = 'inventory_adjusted_line_items',
+  INVENTORY_ADJUSTMENTS_MODEL_NAME = 'inventory_adjustments',
+  PAYMENT_RECEIPTS_MODEL_NAME = 'payment_receipts',
+  EXPENSE_LINE_ITEMS_MODEL_NAME = 'expense_line_items',
+  EXPENSES_MODEL_NAME = 'expenses',
+  BILL_PAYMENTS_MODEL_NAME = 'bill_payments',
+  EMPLOYEE_SALARIES_MODEL_NAME = 'employee_salaries'
+}

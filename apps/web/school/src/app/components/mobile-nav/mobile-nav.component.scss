@@ -1,0 +1,33 @@
+li{
+  cursor: pointer;
+  a{
+
+    text-decoration: none;
+    border: none;
+    color: #01002a;
+
+    span.fe{
+      color: #01002a;
+    }
+
+    svg{
+      fill: #01002a;
+    }
+  }
+}
+
+li.text-yellow-500{
+
+
+  a{
+    color: #f69d0c;
+
+    span.fe{
+      color: #f69d0c;
+    }
+
+    svg{
+      fill: #f69d0c;
+    }
+  }
+}

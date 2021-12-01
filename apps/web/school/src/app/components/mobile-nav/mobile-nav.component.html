@@ -1,0 +1,47 @@
+<div class="flex flex-col h-full justify-between">
+  <ul class="space-y-8">
+    <li
+      class='border-0'
+      routerLink="/dashboard"
+      routerLinkActive="text-yellow-500  font-semibold"
+    >
+      <a class="flex items-center">
+        <span class="inline-block font-semibold ml-2 w-6 h-6 text-yellow-500 stroke-0 fe fe-home text-base"></span>
+        <span class="ml-4 text-base">Dashboard</span>
+      </a>
+    </li>
+
+    <li
+      routerLink="/inventory"
+      routerLinkActive="text-yellow-500 font-semibold"
+    >
+      <a class="flex items-center">
+        <span class="inline-block font-semibold ml-2 w-6 h-6 text-yellow-500 stroke-0 fa fa-cubes text-base"></span>
+        <span class="ml-4 text-base">Inventory</span>
+      </a>
+    </li>
+
+    <li
+      routerLink="/users"
+      routerLinkActive="text-yellow-500 font-semibold"
+    >
+      <a class="flex items-center">
+        <span class="inline-block font-semibold ml-2 w-6 h-6 text-yellow-500 stroke-0 fe fe-users text-base"></span>
+        <span class="ml-4 text-base">Users</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class=''>
+    <div class='flex items-center' *ngIf='authUser$|async as user'>
+      <ngx-avatar [name]='user.name'></ngx-avatar>
+      <div class='ml-2'>
+        <div class='text-md font-semibold'>{{user.name}}</div>
+        <div class='text-sm'>{{user.role.name}}</div>
+      </div>
+    </div>
+    <div class='mt-4'>
+      <a nz-button (click)='logout()' nzBlock nzDanger nzType='default'>Logout</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,97 @@
+
+<div class='tui-container tui-container_fullwidth space-y-4' >
+  <div class='tui-row'>
+    <nz-page-header
+      class="site-page-header"
+      nzTitle="Dashboard"
+      nzSubtitle="Overview"
+    ></nz-page-header>
+  </div>
+  <div class='tui-row tui-row_adaptive tui-row_align_center' *ngIf='vm$|async'>
+    <nz-col class='tui-col_xs-6 tui-col_md-4 tui-col_lg-3'>
+      <nz-card [nzBordered]='true' [nzHoverable]='true' [nzLoading]='schoolsLoading$|async'>
+        <nz-statistic
+          [nzValue]="(0 | number)!"
+          [nzTitle]="'Stock Items'"
+          [nzPrefix]="prefixTplOne"
+          [nzSuffix]=""
+        ></nz-statistic>
+        <ng-template #prefixTplOne>
+          <span class='fa fa-cubes'></span>
+        </ng-template>
+      </nz-card>
+    </nz-col>
+    <nz-col class='tui-col_xs-6 tui-col_md-4 tui-col_lg-3' >
+      <nz-card [nzBordered]='true' [nzHoverable]='true' [nzLoading]='schoolsLoading$|async'>
+        <nz-statistic
+          [nzValue]="(0 | number)!"
+          [nzTitle]="'Low Stock'"
+          [nzPrefix]="prefixTplTwo"
+          [nzSuffix]=""
+        ></nz-statistic>
+        <ng-template #prefixTplTwo>
+          <span class='fe fe-arrow-down-circle'></span>
+        </ng-template>
+      </nz-card>
+    </nz-col>
+
+    <nz-col class='tui-col_xs-6 tui-col_md-4 tui-col_lg-3'>
+      <nz-card [nzBordered]='true' [nzHoverable]='true' [nzLoading]='schoolsLoading$|async'>
+        <nz-statistic
+          [nzValue]="(0 | number)!"
+          [nzTitle]="'Pending Purchase Orders'"
+          [nzPrefix]="prefixTplThree"
+          [nzSuffix]=""
+        ></nz-statistic>
+        <ng-template #prefixTplThree>
+          <span class='fe fe-codesandbox'></span>
+        </ng-template>
+      </nz-card>
+    </nz-col>
+
+    <nz-col class='tui-col_xs-6 tui-col_md-4 tui-col_lg-3'>
+      <nz-card [nzBordered]='true' [nzHoverable]='true' [nzLoading]='schoolsLoading$|async'>
+        <nz-statistic
+          [nzValue]="(0 | number)!"
+          [nzTitle]="'To Be Delivered'"
+          [nzPrefix]="prefixLocalMembers"
+        ></nz-statistic>
+
+        <ng-template #prefixLocalMembers>
+          <span class='fe fe-truck'></span>
+        </ng-template>
+      </nz-card>
+    </nz-col>
+  </div>
+<!--  <div class='tui-row tui-row_adaptive'>-->
+<!--    <div class='tui-col_xs-12 tui-col_md-12 tui-col_lg-6'>-->
+<!--      <nz-card nzTitle="Schools by Region Distribution" [nzLoading]='schoolsLoading$|async' [nzExtra]="genderDistributionExtraTemplate">-->
+<!--        <div class='md:h-96 flex justify-center' *ngIf='schoolByRegionsDistributionStats$$|async as value'>-->
+
+<!--          <div  class="flex justify-center mr-4">-->
+<!--            <tui-pie-chart [value]="value" size='xl' [hintContent]="content"></tui-pie-chart>-->
+<!--          </div>-->
+
+<!--          <ng-template #content let-index>-->
+<!--            <div>{{labels[index]}} ({{value[index]}})</div>-->
+<!--          </ng-template>-->
+
+<!--&lt;!&ndash;          <div class="tui-row tui-row_adaptive">&ndash;&gt;-->
+<!--&lt;!&ndash;            <nz-tag&ndash;&gt;-->
+<!--&lt;!&ndash;              *ngFor="let label of labels; let index = index"&ndash;&gt;-->
+<!--&lt;!&ndash;              class="tui-col_md-6"&ndash;&gt;-->
+<!--&lt;!&ndash;              nzColor="blue">&ndash;&gt;-->
+<!--&lt;!&ndash;              {{label}} - {{value[index]}}&ndash;&gt;-->
+<!--&lt;!&ndash;            </nz-tag>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--        </div>-->
+<!--      </nz-card>-->
+<!--      <ng-template #genderDistributionExtraTemplate>-->
+<!--        &lt;!&ndash;        <a>Refresh</a>&ndash;&gt;-->
+<!--      </ng-template>-->
+
+<!--    </div>-->
+<!--  </div>-->
+
+
+</div>

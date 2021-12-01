@@ -1,0 +1,77 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "downlevelIteration": true,
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2019", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@fom/backend/application": ["libs/backend/application/src/index.ts"],
+      "@fom/backend/common": ["libs/backend/common/src/index.ts"],
+      "@fom/backend/context/ministry/reads": [
+        "libs/backend/context/ministry/reads/src/index.ts"
+      ],
+      "@fom/backend/context/ministry/writes": [
+        "libs/backend/context/ministry/writes/src/index.ts"
+      ],
+      "@fom/backend/context/school/reads": [
+        "libs/backend/context/school/reads/src/index.ts"
+      ],
+      "@fom/backend/context/school/writes": [
+        "libs/backend/context/school/writes/src/index.ts"
+      ],
+      "@fom/backend/context/suppliers/reads": [
+        "libs/backend/context/suppliers/reads/src/index.ts"
+      ],
+      "@fom/backend/context/suppliers/writes": [
+        "libs/backend/context/suppliers/writes/src/index.ts"
+      ],
+      "@fom/backend/core/cqrx": ["libs/backend/core/cqrx/src/index.ts"],
+      "@fom/backend/domain": ["libs/backend/domain/src/index.ts"],
+      "@fom/backend/persistence": ["libs/backend/persistence/src/index.ts"],
+      "@fom/bulk-sms": ["libs/bulk-sms/src/index.ts"],
+      "@fom/dashboard": ["libs/dashboard/src/index.ts"],
+      "@fom/shared/api-dtos": ["libs/shared/api-dtos/src/index.ts"],
+      "@fom/web/core": ["libs/web/core/src/index.ts"],
+      "@fom/web/core/data": ["libs/web/core/data/src/index.ts"],
+      "@fom/web/features/auth": ["libs/web/features/auth/src/index.ts"],
+      "@fom/web/features/contact-form": [
+        "libs/web/features/contact-form/src/index.ts"
+      ],
+      "@fom/web/features/dashboard": [
+        "libs/web/features/dashboard/src/index.ts"
+      ],
+      "@fom/web/features/members": ["libs/web/features/members/src/index.ts"],
+      "@fom/web/features/schools": ["libs/web/features/schools/src/index.ts"],
+      "@fom/web/features/shared-ui": [
+        "libs/web/features/shared-ui/src/index.ts"
+      ],
+      "@fom/web/features/sms": ["libs/web/features/sms/src/index.ts"],
+      "@fom/web/features/users": ["libs/web/features/users/src/index.ts"],
+      "@fom/web/ministry/items": ["libs/web/ministry/items/src/index.ts"],
+      "@fom/web/school/auth": ["libs/web/school/auth/src/index.ts"],
+      "@fom/web/school/dashboard": ["libs/web/school/dashboard/src/index.ts"],
+      "@fom/web/school/enrollment": ["libs/web/school/enrollment/src/index.ts"],
+      "@fom/web/school/inventory": ["libs/web/school/inventory/src/index.ts"],
+      "@fom/web/shared/feature-notification": [
+        "libs/web/shared/feature-notification/src/index.ts"
+      ],
+      "@fom/web/shared/ui-ant": ["libs/web/shared/ui-ant/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

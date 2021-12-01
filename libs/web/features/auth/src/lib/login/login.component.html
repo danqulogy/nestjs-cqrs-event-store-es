@@ -1,0 +1,53 @@
+<div class='bg-white w-screen h-screen '>
+  <div class='w-full h-full p-2 lg:p-4 bg-no-repeat bg-cover' style="background-image: url('assets/bg_1.jpg')">
+    <div class='w-full md:w-1/2 lg:w-1/3 h-full bg-white shadow-lg rounded-xl p-4 lg:py-8 lg:px-12 lg:rounded-xl flex flex-col justify-items-center '>
+      <div id="brand" class='flex flex-col lg:flex-row items-center lg:justify-start justify-center'>
+        <img class='w-20' src='assets/logo.png' alt='Focus Outreach Ministry Logo'>
+        <div class="mt-2 lg:ml-4">
+          <div class="uppercase text-center lg:text-left text-yellow-500 font-bold lg:text-xl">
+            Ministry of Education
+          </div>
+          <div class="text-md font-semibold lg:text-left lg:text-lg text-gray-500 text-center ">Food Inventory Management System</div>
+        </div>
+      </div>
+
+      <div id='form' class='mt-16 lg:mt-20'>
+       <div class='mb-8'>
+         <div class='text-xl lg:text-xl text-center text-teal-900 uppercase font-bold lg:text-left'>Administrative Portal</div>
+       </div>
+
+        <h1 class='text-xl lg:text-2xl text-center text-purple-900 font-bold lg:text-left'>Welcome Back!</h1>
+        <div class='text-center mb-8 lg:mb-12 lg:text-lg text-purple-900 font-semibold lg:text-left'>Please Log in to your account.</div>
+
+        <form nz-form [formGroup]="form" class=" space-y-8" (ngSubmit)="login()">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please enter your email!">
+              <nz-input-group [nzSize]="'large'" nzPrefixIcon="user">
+                <input type="text" nzSize='large' class='py-2' nz-input formControlName="username" placeholder="Username" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please enter your Password!">
+              <nz-input-group [nzSize]="'large'" nzPrefixIcon="lock">
+                <input type="password" nzSize='large' nz-input formControlName="password" placeholder="Password" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <button nz-button nzSize='large'
+                  [nzLoading]="(progressRef.state | async).active"
+                  class="login-form-button w-full lg:w-1/2 login-form-margin"
+                  [nzType]="'primary'">
+            Log in
+          </button>
+        </form>
+      </div>
+
+      <div class='text-gray-800 mt-20 text-center lg:text-left lg:text-sm  text-xs'>
+        Copyright  2021. Produced by <a>FullEffect Studios</a>
+
+      </div>
+    </div>
+  </div>
+</div>

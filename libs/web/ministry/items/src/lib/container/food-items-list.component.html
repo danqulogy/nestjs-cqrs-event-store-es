@@ -1,0 +1,102 @@
+<div class="bg-white tui-container tui-container_fullwidth  shadow-lg rounded-lg px-4 lg:px-8 py-4 ml-4 mt-2">
+  <nz-page-header class="site-page-header" nzBackIcon>
+    <nz-page-header-title>Food Items</nz-page-header-title>
+    <nz-page-header-extra>
+      <button (click)='showModal= true' class='flex items-center space-x-1 btn btn-primary'>
+        <span class='fe fe-plus'></span> Add Food Item
+      </button>
+    </nz-page-header-extra>
+  </nz-page-header>
+
+  <nz-divider></nz-divider>
+
+  <div class="card-body" *ngIf="foodItems$ | async as items">
+    <div *ngIf="items.length">
+      <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search"></i>
+      </ng-template>
+      <app-filter-textbox
+        class='mb-2 w-64x'
+        #filterBox
+        (changed)="filterData($event)"
+        [filter]="searchTerm"
+        [ngClass]="{ hidden: !items.length, block: items.length }"
+        placeholderText="Find item"
+      ></app-filter-textbox>
+    </div>
+
+    <div id="members-directory">
+      <div *ngIf="!items.length">
+        <nz-result
+          class="flex flex-col items-center"
+          nzStatus="404"
+          nzTitle="No Food Items were found"
+          nzSubTitle="Manage suppliable items on the platform here"
+        >
+        </nz-result>
+      </div>
+    </div>
+
+    <nz-table id='card-holders-table text-lg'
+      class="hiddenx md:blockx"
+      *ngIf="items.length"
+      [nzPageSize]='50'
+      [nzData]="[filteredFoodItems]"
+    >
+      <thead>
+      <tr class='text-base'>
+        <th>Name</th>
+        <th>Unit of Measure</th>
+        <th>Status</th>
+        <th>Last Modified</th>
+        <th class='hiddenx xl:blockx'>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class='text-base' *ngFor="let data of filteredFoodItems">
+        <td>{{ data.name }}</td>
+        <td>
+          <nz-tag nzColor='geekblue'>{{data.unit}}</nz-tag>
+        </td>
+        <td>
+          <nz-tag *ngIf='data.active' nzColor='green'>Active</nz-tag>
+          <nz-tag *ngIf='!data.active' nzColor='red'>Inactive</nz-tag>
+        </td>
+        <td class='hiddenx xl:blockx'>
+          {{ data.updatedAt || data.createdAt | date }}
+        </td>
+        <td>
+          <div class='space-x-2'>
+            <button class="btn btn-sm capitalize  btn-outline ">Edit</button>
+            <button class="btn btn-sm capitalize btn-outline btn-accent">Delete</button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
+  <nz-modal [(nzVisible)]="showModal" nzTitle="Add Food Item" (nzOnCancel)="showModal = false"
+            nzClosable [nzOkDisabled]='form.invalid' nzOkText='Add'
+            (nzOnOk)="addFoodItem()">
+    <ng-container *nzModalContent>
+      <form nzLayout='vertical' nz-form [formGroup]="form" class="login-form">
+        <nz-form-item>
+          <nz-form-label nzRequired >Item name</nz-form-label>
+          <nz-form-control class='w-full' nzErrorTip="Please enter item name!">
+              <input type="text" class='text-md' nz-input formControlName="name" placeholder="Food Item name" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label class='w-full text-left' nzRequired >Unit of Measure</nz-form-label>
+          <nz-form-control nzErrorTip="Please select stock item unit">
+              <nz-select nzPlaceHolder='Select unit of measure' formControlName="unit">
+                <nz-option *ngFor='let unit of units$|async' [nzLabel]='unit.name' [nzValue]='unit.name'></nz-option>
+              </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
+      </form>
+    </ng-container>
+  </nz-modal>
+</div>

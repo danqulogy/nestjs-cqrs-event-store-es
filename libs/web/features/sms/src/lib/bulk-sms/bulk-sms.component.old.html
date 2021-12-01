@@ -1,0 +1,42 @@
+<div class="bg-white shadow-lg rounded-lg px-4 lg:px-8 py-4">
+  <nz-page-header class="site-page-header" nzBackIcon>
+    <nz-page-header-title>Broadcast SMS</nz-page-header-title>
+    <nz-page-header-extra>
+<!--      <button (click)="showModal = true" nz-button nzType="primary">-->
+<!--        <span class="fe fe-plus"></span> Add-->
+<!--      </button>-->
+    </nz-page-header-extra>
+  </nz-page-header>
+
+  <nz-divider></nz-divider>
+
+  <div class="card-body">
+
+
+    <div id="members-directory">
+      <div >
+        <nz-empty class='flex flex-col items-center'
+          nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+          [nzNotFoundContent]="contentTpl"
+          [nzNotFoundFooter]="footerTpl"
+        >
+          <ng-template #contentTpl>
+        <h1>Send Bulk Messages to members</h1>
+            <div>
+              This feature will allow you send sms message to selected or all members in the directory.
+            </div>
+          </ng-template>
+          <ng-template #footerTpl>
+<!--            <button nz-button nzType="primary" >Create Now</button>-->
+          </ng-template>
+        </nz-empty>
+      </div>
+      <ul>
+        <li></li>
+      </ul>
+    </div>
+
+  </div>
+
+
+</div>

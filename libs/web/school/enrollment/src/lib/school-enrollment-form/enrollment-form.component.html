@@ -1,0 +1,215 @@
+<div id="pattern" class="w-100 h-screen overflow-x-hidden bg-green-100">
+  <div
+    class="
+      mx-auto
+      container
+      flex flex-col
+      justify-center
+      px-8
+      py-4
+      md:w-2/3
+      xl:w-2/5
+    "
+  >
+    <div
+      class="h-36 w-full bg-contain bg-bottom rounded"
+      style="background-image: url('assets/school_feeding.jpg')"
+    ></div>
+
+    <div
+      *ngIf="!submitted; else submittedTpl"
+      class="rounded bg-white px-8 py-4 lg:px-16 xl:px-12 shadow-2xl"
+    >
+      <div>
+        <div id="brand" class="flex flex-col items-center justify-center">
+          <img
+            class="w-20"
+            src="assets/logo.png"
+            alt="Focus Outreach Ministry Logo"
+          />
+          <div class="mt-2 lg:ml-4">
+            <div
+              class="uppercase text-center text-xl text-yellow-600 font-bold"
+            >
+              Minstry of Education
+            </div>
+            <div class="text-center text-md font-semibold">
+              Food Inventory Management System
+            </div>
+          </div>
+        </div>
+
+        <h1 class="text-center text-xl pt-4">School Enrollment Form</h1>
+
+        <div class="text-center pb-4">
+          After submitting your school details, this will allow your school to
+          manage your food inventory, raise purchase orders and manage
+          suppliers.
+        </div>
+      </div>
+
+      <div>
+        <nz-alert
+          nzType="warning"
+          nzMessage="Fields marked with asterisk (*) are required"
+          nzShowIcon
+        ></nz-alert>
+        <fe-messages></fe-messages>
+        <form nz-form nzLayout="vertical" class="space-y-5" [formGroup]="form">
+          <nz-divider nzText="Basic School Information"></nz-divider>
+          <nz-form-item>
+            <nz-form-label [nzSm]="24" [nzXs]="24">School Name</nz-form-label>
+            <nz-form-control [nzSm]="24" [nzXs]="24">
+              <input formControlName="schoolName" nz-input />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label [nzSm]="24" [nzXs]="24">Gender Type</nz-form-label>
+            <nz-form-control [nzSm]="24" [nzXs]="24">
+              <input formControlName="genderType" nz-input />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label [nzSm]="24" [nzXs]="24">Region</nz-form-label>
+            <nz-form-control [nzSm]="24" [nzXs]="24">
+              <input formControlName="region" nz-input />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-divider nzText="Enter your school population"></nz-divider>
+
+          <nz-form-item>
+            <nz-form-label [nzSm]="24" [nzXs]="24" nzRequired
+              >Total Student Population</nz-form-label
+            >
+            <nz-form-control
+              [nzSm]="24"
+              [nzXs]="24"
+              nzErrorTip="Total students"
+            >
+              <nz-input-number
+                class="w-64"
+                formControlName="totalPopulation"
+              ></nz-input-number>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label [nzSm]="24" [nzXs]="24" nzRequired
+              >Number Day Students</nz-form-label
+            >
+            <nz-form-control
+              [nzSm]="24"
+              [nzXs]="24"
+              nzErrorTip="Number of Day Students"
+            >
+              <nz-input-number
+                class="w-64"
+                formControlName="numberOfDayStudents"
+              ></nz-input-number>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label [nzSm]="24" [nzXs]="24" nzRequired
+              >Number of Boarding Students</nz-form-label
+            >
+            <nz-form-control
+              [nzSm]="24"
+              [nzXs]="24"
+              nzErrorTip="Number of Boarding Students"
+            >
+              <nz-input-number
+                class="w-64"
+                formControlName="numberOfBoardingStudents"
+              ></nz-input-number>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-divider nzText="Headmaster Information"></nz-divider>
+          <nz-form-item>
+            <nz-form-label [nzSm]="24" [nzXs]="24"
+              >Headmaster Name</nz-form-label
+            >
+            <nz-form-control [nzSm]="24" [nzXs]="24">
+              <input formControlName="headTeacherName" nz-input />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="24" [nzXs]="24">Email</nz-form-label>
+            <nz-form-control
+              [nzSm]="24"
+              [nzXs]="24"
+              nzErrorTip="Invalid email address"
+            >
+              <input type="email" formControlName="headTeacherEmail" nz-input />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label [nzSm]="24" [nzXs]="24" nzRequired>Password</nz-form-label>
+            <nz-form-control
+              [nzSm]="24"
+              [nzXs]="24"
+              nzErrorTip="Please enter your password"
+            >
+              <input type="password" formControlName="password" nz-input />
+              <div class="text-muted text-xs">
+                Please provide a password that will be used to access the portal
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+
+          <div class="pb-10 md:flex md:justify-center">
+            <button
+              [disabled]="form.invalid"
+              (click)="onSubmit()"
+              nzSize="large"
+              nz-button
+              nzType="primary"
+            >
+              Submit
+            </button>
+          </div>
+
+          <hr />
+          <div class="text-center py-4">
+            <div>Copyright &copy; 2021. All rights reserved.</div>
+            <div>
+              <a href="https://www.focusoutreachmovement.com"
+                >www.focusoutreachmovement.com</a
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <ng-template #submittedTpl>
+      <div
+        class="rounded bg-white px-8 py-16 h-100 lg:px-16 xl:px-12 shadow-2xl"
+      >
+        <nz-result
+          [nzIcon]="'smile-twotone'"
+          nzSubTitle="You can use the login button below to sign with your email and password. Happy management, hurray!"
+          [nzTitle]="'Great, your school has been successfully enrolled'"
+        >
+          <div nz-result-extra>
+            <button routerLink='/passport/login' nz-button nzType="primary">
+              Login
+            </button>
+          </div>
+        </nz-result>
+
+        <hr />
+        <div class="text-center pt-10 py-4">
+          <div>Copyright &copy; 2021. Powered by</div>
+          <div>
+            <a href="#">FullEffect Studio</a>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

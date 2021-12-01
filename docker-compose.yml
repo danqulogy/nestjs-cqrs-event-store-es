@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+  eventstore:
+    container_name: ministry_of_education_eventstore
+    image: eventstore/eventstore:21.10.0-buster-slim
+    environment:
+      - EVENTSTORE_CLUSTER_SIZE=1
+      - EVENTSTORE_RUN_PROJECTIONS=All
+      - EVENTSTORE_START_STANDARD_PROJECTIONS=true
+      - EVENTSTORE_EXT_TCP_PORT=1113
+      - EVENTSTORE_HTTP_PORT=2113
+      - EVENTSTORE_INSECURE=true
+      - EVENTSTORE_ENABLE_EXTERNAL_TCP=true
+      - EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP=true
+    ports:
+      - '1113:1113'
+      - '2113:2113'
+    volumes:
+      - type: volume
+        source: eventstore-volume-data
+        target: /c/data/eventstore/data
+      - type: volume
+        source: eventstore-volume-logs
+        target: /c/data/eventstore/logs
+
+#  mongodb:
+#    image: davybello/mongo-replica-set:4.4.8
+#    container_name: ministry_of_education_mongodb_cluster
+#    volumes:
+#      - "./docker/.data/mongo1:/var/lib/mongo1"
+#      - "./docker/.data/mongo2:/var/lib/mongo2"
+#      - "./docker/.data/mongo3:/var/lib/mongo3"
+#    ports:
+#      - "27017:27017"
+#      - "27018:27018"
+#      - "27019:27019"
+
+volumes:
+  eventstore-volume-data:
+  eventstore-volume-logs:

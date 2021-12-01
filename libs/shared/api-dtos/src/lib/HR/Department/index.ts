@@ -1,0 +1,5 @@
+export * from './change-active-status.dto'
+export * from './create-department.dto'
+export * from './department.dto'
+export * from './edit-department.dto'
+export * from './set-department-head.dto'

@@ -1,0 +1,306 @@
+<div class="bg-white shadow-lg rounded-lg px-4 lg:px-8 py-4">
+  <nz-page-header class="site-page-header" nzBackIcon>
+    <nz-page-header-title>Schools</nz-page-header-title>
+    <nz-page-header-extra>
+      <button *ngIf='showDispatchButton$$|async' (click)="dispatchEnrollmentNotification()" nz-button nzType="primary">
+        <span class="fe fe-plus"></span> Dispatch Enrollment
+      </button>
+
+    </nz-page-header-extra>
+  </nz-page-header>
+
+<!--  <nz-divider></nz-divider>-->
+
+  <div *ngIf='(showDispatchButton$$|async) === false'>
+    <nz-alert
+      [nzCloseable]='true'
+      nzType="success"
+      nzMessage="Enrollment Notice emails has been dispatched to all school headmasters"
+      nzShowIcon
+    ></nz-alert>
+  </div>
+  <div class="card-body" *ngIf="schools$ | async as schools">
+    <nz-row class='pb-2' [nzGutter]="16">
+      <nz-col [nzSpan]="6">
+        <nz-statistic [nzValue]="(schools.length | number)!" [nzTitle]="'Total Schools'"></nz-statistic>
+      </nz-col>
+      <nz-col [nzSpan]="6">
+        <nz-statistic [nzValue]="(enrolledSchools$$|async | number)!" [nzTitle]="'Enrolled'"></nz-statistic>
+      </nz-col>
+      <nz-col [nzSpan]="6">
+        <nz-statistic [nzValue]="(pendingSchools$$|async | number: '1.0-2')!" [nzTitle]="'Pending'"></nz-statistic>
+      </nz-col>
+
+      <nz-col [nzSpan]="6">
+        <nz-statistic [nzValue]="(schoolsWithDispatchedNotice$$|async | number: '1.0-2')!" [nzTitle]="'Dispatched'"></nz-statistic>
+      </nz-col>
+    </nz-row>
+
+    <div *ngIf="schools.length">
+      <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search"></i>
+      </ng-template>
+      <app-filter-textbox
+        class='mb-2'
+        #filterBox
+        (changed)="filterData($event)"
+        [filter]="searchTerm"
+        [ngClass]="{ hidden: !schools.length, block: schools.length }"
+        placeholderText="Search directory"
+      ></app-filter-textbox>
+    </div>
+
+    <div id="members-directory">
+      <div *ngIf="!schools.length">
+        <nz-result
+          class="flex flex-col items-center"
+          nzStatus="404"
+          nzTitle="Schools directory is empty"
+          nzSubTitle="This is a list of school profiles under the ministry of education "
+        >
+          <div nz-result-extra>
+            <button (click)="showModal = true" nz-button nzType="primary">
+              Add School
+            </button>
+          </div>
+        </nz-result>
+      </div>
+    </div>
+
+    <div class='md:hidden' *ngIf="schools.length">
+      <div *ngFor="let m of filteredSchools">
+        <div class='flex items-center my-4'>
+          <ngx-avatar  [name]="m.name"></ngx-avatar>
+          <div class='ml-2'>
+            <div class="font-semibold">{{ m.name }}</div>
+            <div class='space-x-4 mt-2'>
+              <a nz-button nzSize='small' (click)="showEditModal = true; populateForm(m)">
+                Edit</a
+              >
+              <a nz-button nzSize='small' nzDanger (click)="deleteMember(m)">Delete</a>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+      </div>
+    </div>
+    <nz-table
+      class="hidden md:block"
+      *ngIf="schools.length"
+      [nzPageSize]='50'
+      [nzData]="[filteredSchools]"
+    >
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Headmaster</th>
+          <th>Gender</th>
+          <th>Town</th>
+          <th>Region</th>
+<!--          <th></th>-->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of filteredSchools">
+          <td class="font-semibold">{{ data.name }}</td>
+          <td class="font-semibold">
+            <nz-tag *ngIf='data.enrollmentStatus === enrollmentStatusEnum.NOT_ENROLLED'
+                    nzColor='red'>{{data.enrollmentStatus}}</nz-tag>
+            <nz-tag *ngIf='data.enrollmentStatus === enrollmentStatusEnum.ENROLLED'
+                    nzColor='green'>{{data.enrollmentStatus}}</nz-tag>
+            <nz-tag *ngIf='data.enrollmentStatus === enrollmentStatusEnum.PENDING'
+                    nzColor='yellow'>{{data.enrollmentStatus}}</nz-tag>
+          </td>
+          <td>
+            <div class='flex'>
+              <ngx-avatar [name]='data.headTeacher.name'></ngx-avatar>
+              <div class='ml-2'>
+                <div>{{data.headTeacher.name}}</div>
+                <div class='text-blue-800 text-sm'>{{data.headTeacher.email}}</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <nz-tag>{{ data.genderType }}</nz-tag>
+          </td>
+          <td>
+            {{data.town}}
+          </td>
+          <td>
+            {{data.region}}
+          </td>
+<!--          <td>-->
+<!--            <div class="space-x-1">-->
+<!--              <a nz-button (click)="showEditModal = true; populateForm(data)">-->
+<!--                Edit</a-->
+<!--              >-->
+<!--              <a nz-button nzDanger (click)="deleteMember(data)">Delete</a>-->
+<!--            </div>-->
+<!--          </td>-->
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
+  <nz-modal
+    [(nzVisible)]="showModal"
+    [nzTitle]="'Add new Member'"
+    (nzOnCancel)="showModal = false"
+    [nzOkDisabled]="form.invalid"
+    (nzOnOk)="onSubmit()"
+  >
+    <ng-container *nzModalContent>
+      <form nz-form [formGroup]="form">
+        <fe-messages></fe-messages>
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+            >First Name</nz-form-label
+          >
+          <nz-form-control
+            [nzSm]="14"
+            [nzXs]="24"
+            nzErrorTip="Enter first name"
+          >
+            <input formControlName="firstName" nz-input />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+            >Surname</nz-form-label
+          >
+          <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Enter surname">
+            <input formControlName="surname" nz-input />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+            >Gender</nz-form-label
+          >
+          <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Select gender">
+            <nz-select formControlName="gender">
+              <nz-option nzLabel="Male" nzValue="Male"></nz-option>
+              <nz-option nzLabel="Female" nzValue="Female"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24">Date of Birth</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="">
+            <nz-date-picker formControlName="dateOfBirth"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" nzRequired
+            >Phone number</nz-form-label
+          >
+          <nz-form-control
+            [nzSm]="14"
+            [nzXs]="24"
+            nzErrorTip="Enter phone number!"
+          >
+            <div>
+
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24">Email Address</nz-form-label>
+          <nz-form-control
+            [nzSm]="14"
+            [nzXs]="24"
+            nzErrorTip="Invalid email address"
+          >
+            <input type="email" formControlName="email" nz-input />
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </ng-container>
+  </nz-modal>
+
+  <nz-modal
+    [(nzVisible)]="showEditModal"
+    [nzTitle]="'Edit member info'"
+    (nzOnCancel)="showEditModal = false"
+    [nzOkDisabled]="editForm.invalid"
+    (nzOnOk)="onUpdate()"
+  >
+    <ng-container *nzModalContent>
+      <form nz-form [formGroup]="editForm">
+        <fe-messages></fe-messages>
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+            >First Name</nz-form-label
+          >
+          <nz-form-control
+            [nzSm]="14"
+            [nzXs]="24"
+            nzErrorTip="Enter first name"
+          >
+            <input formControlName="firstName" nz-input />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+            >Surname</nz-form-label
+          >
+          <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Enter surname">
+            <input formControlName="surname" nz-input />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+            >Gender</nz-form-label
+          >
+          <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Select gender">
+            <nz-select formControlName="gender">
+              <nz-option nzLabel="Male" nzValue="Male"></nz-option>
+              <nz-option nzLabel="Female" nzValue="Female"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24">Date of Birth</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="">
+            <nz-date-picker formControlName="dateOfBirth"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" nzRequired
+            >Phone number</nz-form-label
+          >
+          <nz-form-control
+            [nzSm]="14"
+            [nzXs]="24"
+            nzErrorTip="Enter phone number!"
+          >
+            <div>
+              <input nz-input type="tel" formControlName="phone" />
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24">Email Address</nz-form-label>
+          <nz-form-control
+            [nzSm]="14"
+            [nzXs]="24"
+            nzErrorTip="Invalid email address"
+          >
+            <input type="email" formControlName="email" nz-input />
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </ng-container>
+  </nz-modal>
+</div>
